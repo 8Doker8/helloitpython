@@ -14,3 +14,5 @@ if __name__ == '__main__':
     print_hi('PyCharm')
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+# Создать программу которая берет любой текстовый инпут и переделывает текст в код Морза

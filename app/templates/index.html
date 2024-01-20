@@ -7,25 +7,30 @@
     <title>Task Manager</title>
 </head>
 <body>
-    <h1>Task Manager</h1>
+    {% if current_user.is_authenticated %}
+        <h1>Task Manager</h1>
+        <p>Welcome, {{ current_user.username }}! <a href="{{ url_for('logout') }}">Logout</a></p>
 
-    <form action="/add" method="post">
-        <input type="text" name="content" id="content">
-        <input type="submit" value="Add Task">
-    </form>
+        <form action="/add" method="post">
+            <input type="text" name="content" id="content">
+            <input type="submit" value="Add Task">
+        </form>
 
-    <ul>
-        {% for task in tasks %}
-            <li>
-                {{ task.content }}
-                {% if not task.completed %}
-                    <a href="/complete/{{ task.id }}">Complete</a>
-                    <a href="/edit/{{ task.id }}">Edit</a>
-                {% endif %}
-                <a href="/delete/{{ task.id }}">Delete</a>
-            </li>
-        {% endfor %}
-    </ul>
-
+        <ul>
+            {% for task in tasks %}
+                <li>
+                    {{ task.content }}
+                    {% if not task.completed %}
+                        <a href="/complete/{{ task.id }}">Complete</a>
+                        <a href="/edit/{{ task.id }}">Edit</a>
+                    {% endif %}
+                    <a href="/delete/{{ task.id }}">Delete</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h1>Please Login or Register</h1>
+        <p><a href="{{ url_for('login') }}">Login</a> or <a href="{{ url_for('register') }}">Register</a> to manage tasks.</p>
+    {% endif %}
 </body>
 </html>
